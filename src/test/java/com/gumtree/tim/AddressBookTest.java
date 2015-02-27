@@ -4,10 +4,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -29,16 +26,16 @@ public class AddressBookTest {
 
     @Test
     public void shouldCountMales() {
-        final Collection<Entry> entries = addressBook.getEntries().values();
-        final long maleCount = entries.stream().filter(e -> Entry.Gender.MALE.equals(e.getGender())).count();
+        final Collection<AddressBookEntry> entries = addressBook.getEntries().values();
+        final long maleCount = entries.stream().filter(e -> AddressBookEntry.Gender.MALE.equals(e.getGender())).count();
         assertEquals(3, maleCount);
     }
 
     @Test
     public void shouldFindOldestPerson() {
         // TODO: This assumes there is only one oldest person, or that the requirements don't care about this situation!
-        Collection<Entry> entries = addressBook.getEntries().values();
-        Entry oldest = entries.stream().reduce((a, b) -> a.getDob().isBefore(b.getDob()) ? a : b).get();
+        Collection<AddressBookEntry> entries = addressBook.getEntries().values();
+        AddressBookEntry oldest = entries.stream().reduce((a, b) -> a.getDob().isBefore(b.getDob()) ? a : b).get();
         assertEquals("Wes Jackson", oldest.getName());
 
     }
@@ -46,8 +43,8 @@ public class AddressBookTest {
     @Test
     public void shouldCalculateDOBDifference() {
 
-        Entry bill = addressBook.getEntries().get("Bill McKnight"); // 16/03/77
-        Entry paul = addressBook.getEntries().get("Paul Robinson"); // 15/01/85
+        AddressBookEntry bill = addressBook.getEntries().get("Bill McKnight"); // 16/03/77
+        AddressBookEntry paul = addressBook.getEntries().get("Paul Robinson"); // 15/01/85
 
         long daysBetween = ChronoUnit.DAYS.between(bill.getDob(), paul.getDob());
 

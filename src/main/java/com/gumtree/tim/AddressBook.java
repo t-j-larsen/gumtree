@@ -1,8 +1,9 @@
 package com.gumtree.tim;
 
-import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class AddressBook {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     // TODO: consider multi-threaded access
-    public Map<String,Entry> entries = new HashMap<>(); // map by name
+    public Map<String,AddressBookEntry> entries = new HashMap<>(); // map by name
 
     public AddressBook(InputStream inputStream) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -25,8 +26,8 @@ public class AddressBook {
                 String[] parts = line.split(", ");
                 try {
                     // example format: "Bill McKnight, Male, 16/03/77"
-                    Entry entry = new Entry(parts[0], Entry.Gender.valueOf(parts[1].toUpperCase()), LocalDate.parse(parts[2], formatter));
-                    entries.put(parts[0], entry);
+                    AddressBookEntry addressBookEntry = new AddressBookEntry(parts[0], AddressBookEntry.Gender.valueOf(parts[1].toUpperCase()), LocalDate.parse(parts[2], formatter));
+                    entries.put(parts[0], addressBookEntry);
                 } catch (Exception e) {
                     System.err.println("");
                     //TODO: confirm desired functionality if there is a format problem with a single entry
@@ -37,7 +38,7 @@ public class AddressBook {
         }
     }
 
-    public Map<String,Entry> getEntries() {
+    public Map<String,AddressBookEntry> getEntries() {
         return entries;
     }
 

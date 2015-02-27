@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by tim on 27/02/15.
  */
-public class Entry {
+public class AddressBookEntry {
 
     public enum Gender { MALE, FEMALE }
 
@@ -15,7 +15,7 @@ public class Entry {
     private Gender gender;
     private LocalDate dob;
 
-    public Entry(String name, Gender gender, LocalDate dob) {
+    public AddressBookEntry(String name, Gender gender, LocalDate dob) {
         this.name = name;
         this.gender = gender;
         this.dob = dob;
