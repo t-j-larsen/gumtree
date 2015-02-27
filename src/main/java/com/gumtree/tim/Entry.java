@@ -1,5 +1,6 @@
 package com.gumtree.tim;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,19 +12,19 @@ public class Entry {
 
     private String name; // assume we don't need to store given and family names separately
     private Gender gender;
-    private Date dob;
+    private LocalDate dob;
 
-    public Entry(String name, Gender gender, Date dob) {
+    public Entry(String name, Gender gender, LocalDate dob) {
         this.name = name;
         this.gender = gender;
         this.dob = dob;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

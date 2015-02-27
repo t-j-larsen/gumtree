@@ -3,6 +3,8 @@ package com.gumtree.tim;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ import java.util.Map;
  */
 public class AddressBook {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     public Map<String,Entry> entries = new HashMap<>(); // map by name
 
@@ -22,7 +24,7 @@ public class AddressBook {
                 String[] parts = line.split(", ");
                 try {
                     // e.g. Bill McKnight, Male, 16/03/77
-                    Entry entry = new Entry(parts[0], Entry.Gender.valueOf(parts[1].toUpperCase()), dateFormat.parse(parts[2]));
+                    Entry entry = new Entry(parts[0], Entry.Gender.valueOf(parts[1].toUpperCase()), LocalDate.parse(parts[2], formatter));
                     entries.put(parts[0], entry);
                 } catch (Exception e) {
                     System.err.println("");
@@ -32,10 +34,9 @@ public class AddressBook {
                 line = br.readLine();
             }
         }
-
     }
 
-    public Map getEntries() {
+    public Map<String,Entry> getEntries() {
         return entries;
     }
 

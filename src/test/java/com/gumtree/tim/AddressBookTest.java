@@ -3,6 +3,7 @@ package com.gumtree.tim;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.temporal.ChronoUnit;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -35,5 +36,12 @@ public class AddressBookTest {
     @Test
     public void shouldCalculateDOBDifference() {
 
+        Entry bill = addressBook.getEntries().get("Bill McKnight"); // 16/03/77
+        Entry paul = addressBook.getEntries().get("Paul Robinson"); // 15/01/85
+
+        long daysBetween = ChronoUnit.DAYS.between(bill.getDob(), paul.getDob());
+
+        // http://www.timeanddate.com/date/durationresult.html?m1=3&d1=16&y1=1977&m2=01&d2=15&y2=1985
+        assertEquals(2862, daysBetween);
     }
 }
