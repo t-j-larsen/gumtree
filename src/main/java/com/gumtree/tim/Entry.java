@@ -9,14 +9,14 @@ public class Entry {
 
     public enum Gender { MALE, FEMALE }
 
-    private String name;
+    private String name; // assume we don't need to store given and family names separately
     private Gender gender;
     private Date dob;
 
-    public Entry(Date dob, Gender gender, String name) {
-        this.dob = dob;
-        this.gender = gender;
+    public Entry(String name, Gender gender, Date dob) {
         this.name = name;
+        this.gender = gender;
+        this.dob = dob;
     }
 
     public Date getDob() {
