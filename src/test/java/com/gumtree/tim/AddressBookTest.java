@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -25,7 +27,9 @@ public class AddressBookTest {
 
     @Test
     public void shouldCountMales() {
-
+        final Collection<Entry> entries = addressBook.getEntries().values();
+        final long maleCount = entries.stream().filter(e -> Entry.Gender.MALE.equals(e.getGender())).count();
+        assertEquals(3, maleCount);
     }
 
     @Test
