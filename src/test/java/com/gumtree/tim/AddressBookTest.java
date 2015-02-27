@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -34,6 +36,10 @@ public class AddressBookTest {
 
     @Test
     public void shouldFindOldestPerson() {
+        // TODO: This assumes there is only one oldest person, or that the requirements don't care about this situation!
+        Collection<Entry> entries = addressBook.getEntries().values();
+        Entry oldest = entries.stream().reduce((a, b) -> a.getDob().isBefore(b.getDob()) ? a : b).get();
+        assertEquals("Wes Jackson", oldest.getName());
 
     }
 

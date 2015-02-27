@@ -15,6 +15,7 @@ public class AddressBook {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 
+    // TODO: consider multi-threaded access
     public Map<String,Entry> entries = new HashMap<>(); // map by name
 
     public AddressBook(InputStream inputStream) throws IOException {
@@ -23,7 +24,7 @@ public class AddressBook {
             while (line != null) {
                 String[] parts = line.split(", ");
                 try {
-                    // e.g. Bill McKnight, Male, 16/03/77
+                    // example format: "Bill McKnight, Male, 16/03/77"
                     Entry entry = new Entry(parts[0], Entry.Gender.valueOf(parts[1].toUpperCase()), LocalDate.parse(parts[2], formatter));
                     entries.put(parts[0], entry);
                 } catch (Exception e) {
