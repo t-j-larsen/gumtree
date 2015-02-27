@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,13 @@ public class AddressBook {
     // TODO: consider multi-threaded access
     public Map<String,AddressBookEntry> entries = new HashMap<>(); // map by name
 
+    /**
+     * Loads the entries from an InputStream
+     *
+     * @param inputStream contains the entries
+     * @throws IOException
+     */
+    // TODO: confirm if throwing the IOException is the right thing to do
     public AddressBook(InputStream inputStream) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line = br.readLine();
@@ -38,8 +46,21 @@ public class AddressBook {
         }
     }
 
-    public Map<String,AddressBookEntry> getEntries() {
-        return entries;
+    /**
+     *
+     * @param name the person's full name
+     * @return the entry for that person
+     */
+    public AddressBookEntry getByName(String name) {
+        return entries.get(name);
+    }
+
+    /**
+     *
+     * @return all entries in the address book
+     */
+    public Collection<AddressBookEntry> getEntries() {
+        return entries.values();
     }
 
 }

@@ -3,10 +3,8 @@ package com.gumtree.tim;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.time.temporal.ChronoUnit;
-import java.util.Collection;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by tim on 27/02/15.
@@ -16,7 +14,7 @@ public class AddressBookTest {
     private AddressBook addressBook;
 
     public AddressBookTest() throws IOException {
-        addressBook = new AddressBook(this.getClass().getClassLoader().getResourceAsStream("AddressBook"));
+        this.addressBook = new AddressBook(this.getClass().getClassLoader().getResourceAsStream("AddressBook"));
     }
 
     @Test
@@ -24,31 +22,5 @@ public class AddressBookTest {
         assertEquals(5, addressBook.getEntries().size());
     }
 
-    @Test
-    public void shouldCountMales() {
-        final Collection<AddressBookEntry> entries = addressBook.getEntries().values();
-        final long maleCount = entries.stream().filter(e -> AddressBookEntry.Gender.MALE.equals(e.getGender())).count();
-        assertEquals(3, maleCount);
-    }
-
-    @Test
-    public void shouldFindOldestPerson() {
-        // TODO: This assumes there is only one oldest person, or that the requirements don't care about this situation!
-        Collection<AddressBookEntry> entries = addressBook.getEntries().values();
-        AddressBookEntry oldest = entries.stream().reduce((a, b) -> a.getDob().isBefore(b.getDob()) ? a : b).get();
-        assertEquals("Wes Jackson", oldest.getName());
-
-    }
-
-    @Test
-    public void shouldCalculateDOBDifference() {
-
-        AddressBookEntry bill = addressBook.getEntries().get("Bill McKnight"); // 16/03/77
-        AddressBookEntry paul = addressBook.getEntries().get("Paul Robinson"); // 15/01/85
-
-        long daysBetween = ChronoUnit.DAYS.between(bill.getDob(), paul.getDob());
-
-        // http://www.timeanddate.com/date/durationresult.html?m1=3&d1=16&y1=1977&m2=01&d2=15&y2=1985
-        assertEquals(2862, daysBetween);
-    }
+    //TODO: write tests that check for error handling e.g. invalid file formats
 }

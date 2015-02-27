@@ -1,8 +1,6 @@
 package com.gumtree.tim;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 /**
  * Created by tim on 27/02/15.
